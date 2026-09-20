@@ -6,7 +6,7 @@
 
 ## Current status
 
-2026-09-20 用户明确改为独立 wta-ai 项目，最新归属见 LOG-051 / ADR-021；本 change 已迁入新项目，GitHub 首次发布与原 issue 关闭正在执行，结果见迁移证据。
+2026-09-20 用户明确改为独立 wta-ai 项目，最新归属见 LOG-051 / ADR-021；本 change 已迁入新项目，公开仓库 NAMEWTA/wta-ai 已创建并推送 main；原 WTA-plus Issue #3 已发布迁移说明并关闭，REST 回读确认。初始化、迁移和关联 issue 处理已完成，验证与远程结果见迁移证据。
 
 2026-09-20 用户在 LOG-050 明确确认整体共识。G 已完成，design-tree.status=consensus，round=5，21 个节点全部 answered，frontier 为空；有效方案摘要见 LOG-049。works_run 已包含 specdev/grill-with-docs，current_work=null；change_status 仍 active，产品交付尚未完成。下一 Work 为 S-spec，尚未自动执行；未形成 Ready Spec/Ticket/Goal。
 

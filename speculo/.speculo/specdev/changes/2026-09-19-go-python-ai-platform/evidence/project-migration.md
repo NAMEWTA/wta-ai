@@ -45,7 +45,18 @@ LOG-001～050、ADR-001 及 ADR-006 被细化的旧 scope、冻结 source 保留
 
 工具完整定位：<Path>{roots.workflows}/specdev/common/tools/validate-specdev.mjs</Path>；输入 change 为 <Path>{roots.state}/specdev/changes/2026-09-19-go-python-ai-platform/</Path>。旧项目 Skill 校验工具位于其 engineering-standards/scripts 下。完整全量空白输出仅保留本机临时审查日志，没有将外部模板全文复制进证据。
 
-远程仓库创建、首次推送及 issue 关闭结果待执行后回填。
+远程结果（2026-09-20）：
+
+- gh repo create NAMEWTA/wta-ai --public --source 新项目 --remote origin --push：exit 0；创建 <Url>https://github.com/NAMEWTA/wta-ai</Url> 并推送 main。
+- 首次提交 cf4fc97ff15181963929b4126c1deadbe9a14ddd；远程 refs/heads/main 与本地相同。初始化包含 822 个文件，主要为 Speculo 自带工具资产。
+- gh repo view：exit 0，visibility=PUBLIC、isEmpty=false、defaultBranchRef=main；GitHub Contents API 已回读迁移后的 ADR。
+- gh issue comment --body-file：成功，说明为 <Url>https://github.com/NAMEWTA/WTA-plus/issues/3#issuecomment-5750538523</Url>。
+- gh issue close --reason not planned：成功关闭原 issue，表示工作转出 WTA-plus；不将平台标为已交付。
+- 首次紧随关闭的 gh issue view 使用当前 CLI 不支持的 stateReason 字段，读回命令 exit 1；评论和关闭已成功，不重复写入。
+- 改用 GitHub REST 只读回查：exit 0，state=closed、state_reason=not_planned、closed_at=2026-09-20T14:51:41Z；评论正文包含新仓与 change 链接。
+- WTA-plus 的迁出、索引与项目事实修改保留为本地工作树差异；未提交或推送旧仓。
+
+以上记录随后以审计提交同步到新仓 main；新仓实际最新 SHA 以 Git 为准，不在同一提交中自引用其摘要。
 
 ## 后续边界
 

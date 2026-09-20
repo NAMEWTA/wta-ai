@@ -16,5 +16,15 @@
     "ADR.md": "3e45e32ded3914af81a0f992202fba5374e0975283ffa93945d34260498d13a6",
     "LOG.md": "4c1d26bf73fd4a02e70895116fc41055803faff39537f38f42f6871e53d3645c"
   },
-  "source_preserved": true
+  "source_preserved": true,
+  "verified_at": "2026-09-20T14:52:57.604304+00:00",
+  "destination_visibility": "PUBLIC",
+  "destination_branch": "main",
+  "initial_commit": "cf4fc97ff15181963929b4126c1deadbe9a14ddd",
+  "source_issue_result": {
+    "state": "closed",
+    "state_reason": "not_planned",
+    "closed_at": "2026-09-20T14:51:41Z",
+    "comment_url": "https://github.com/NAMEWTA/WTA-plus/issues/3#issuecomment-5750538523"
+  }
 }

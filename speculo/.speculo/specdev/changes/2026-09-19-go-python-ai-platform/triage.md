@@ -8,10 +8,10 @@ classification: feature
 risk: high
 route: specdev/spec
 ready_for_implementation: false
-external_action: pending-close
+external_action: closed
 publish_action: not-requested
 publish: null
-updated_at: 2026-09-20T14:47:37.736864+00:00
+updated_at: 2026-09-20T14:52:57.604304+00:00
 ---
 
 # Triage: 独立 AI 应用平台（G 已达成共识）
@@ -45,9 +45,9 @@ updated_at: 2026-09-20T14:47:37.736864+00:00
 
 - **远程目标：** <Url>https://github.com/NAMEWTA/WTA-plus/issues/3</Url>。
 - **关闭能力：** supported。
-- **当前状态：** pending-close；远程仍 open。
+- **当前状态：** closed；已于 2026-09-20T14:51:41Z 关闭，原因 not_planned（工作转入独立项目，不代表产品完成）。
 - **授权记录：** 2026-09-20 用户明确授权创建 wta-ai public 仓库、初始化并迁移本 change、评论说明去向并关闭原 issue。
-- **尝试与结果：** 已只读核实原 issue 仍 open；仓库发布后执行说明与关闭，结果记录在迁移证据。
+- **尝试与结果：** 新仓 public、main 已推送并回读设计文件；迁移说明已发布，issue 已关闭。REST 回读 state=closed；说明见 <Url>https://github.com/NAMEWTA/WTA-plus/issues/3#issuecomment-5750538523</Url>。
 
 ## 发布投影
 
