@@ -1,0 +1,305 @@
+{
+  "schema_version": 1,
+  "artifact": "design-tree",
+  "change": "2026-09-19-go-python-ai-platform",
+  "status": "consensus",
+  "round": 5,
+  "nodes": [
+    {
+      "id": "D-001",
+      "title": "独立平台与目录",
+      "question": "平台是否独立于 WTA 运行并拥有 frontend/backend？",
+      "depends_on": [],
+      "recommendation": "独立 wta-ai 项目与公开仓库，自有前后端及发布部署资产。",
+      "status": "answered",
+      "round": null,
+      "answer": "用户明确改为独立 wta-ai 项目，不再放入 WTA-plus/backend；项目根自有 frontend、backend、release-artifacts、scripts，创建 NAMEWTA/wta-ai public 仓库、初始化 Speculo、迁移本 change 并关闭 WTA-plus Issue #3。技术与产品共识继续有效。",
+      "log_ref": "LOG-051"
+    },
+    {
+      "id": "D-002",
+      "title": "双前端访问面",
+      "question": "是否提供管理台与开发者文档门户？",
+      "depends_on": [
+        "D-001"
+      ],
+      "recommendation": "分别满足开发运营与外部调用文档任务。",
+      "status": "answered",
+      "round": null,
+      "answer": "用户明确要求两个前端访问面。",
+      "log_ref": "LOG-003"
+    },
+    {
+      "id": "D-003",
+      "title": "双公开 API",
+      "question": "是否提供第三方管理及服务运行 API？",
+      "depends_on": [
+        "D-001"
+      ],
+      "recommendation": "分别定义运行与管理合同。",
+      "status": "answered",
+      "round": null,
+      "answer": "用户明确要求运行 API 和可供 WTA 后端集成的第三方管理 OpenAPI。",
+      "log_ref": "LOG-004"
+    },
+    {
+      "id": "D-010",
+      "title": "技术栈与独立工程作用域",
+      "question": "Temporal 与 LangGraph 应如何选择？完整推荐栈及独立数据库/审计 scope 是否接受？",
+      "depends_on": [
+        "D-001",
+        "D-002",
+        "D-003"
+      ],
+      "recommendation": "采用已接受的 ADR-005～007 技术栈与独立数据库作用域，不重复询问选型。",
+      "status": "answered",
+      "round": 1,
+      "answer": "用户明确接受 LOG-025 的 LangGraph 技术方案与独立 PostgreSQL/Alembic 数据库作用域；WTA Java 继续 MySQL，首版不引入 Temporal 或 Go。",
+      "log_ref": "LOG-029"
+    },
+    {
+      "id": "D-011",
+      "title": "P0 产品范围",
+      "question": "P0 是否同时纳入完整 RAG、记忆和高级扩展，并保留 Agent/Graph/Team、双前端与双 API 的平台基础？",
+      "depends_on": [
+        "D-001",
+        "D-002",
+        "D-003"
+      ],
+      "recommendation": "P0 完整平台包含 RAG、记忆和高级扩展，分内部里程碑验收。",
+      "status": "answered",
+      "round": 1,
+      "answer": "用户明确 P0 同时纳入完整 RAG、记忆和高级扩展；保留其余平台基础范围，具体高风险能力另决。",
+      "log_ref": "LOG-022"
+    },
+    {
+      "id": "D-012",
+      "title": "身份与租户所有权",
+      "question": "独立平台采用什么身份与租户边界？",
+      "depends_on": [
+        "D-001",
+        "D-002",
+        "D-003"
+      ],
+      "recommendation": "遵循 ADR-013：独立超管身份，无租户、无普通用户协作；通过网络与外部系统交互。",
+      "status": "answered",
+      "round": 1,
+      "answer": "最初确认独立用户与无租户；LOG-038进一步限定超管登录、密钥分发，替代普通用户私有资源模型，与WTA只走网络接口。",
+      "log_ref": "LOG-038"
+    },
+    {
+      "id": "D-020",
+      "title": "数据出网与危险动作",
+      "question": "P0允许哪些外部调用与执行能力，是否包含用户代码、终端或浏览器执行？",
+      "depends_on": [
+        "D-011",
+        "D-012"
+      ],
+      "recommendation": "采用已接受ADR-008：管理员配置出网，业务写工具经过权限/审批/幂等控制，Skill仅指令/文件/能力声明及受控工具引用。",
+      "status": "answered",
+      "round": 2,
+      "answer": "用户接受配置允许出网与受控写工具；Skill不执行任意代码。按Q4推荐，写工具经权限、审批和幂等治理，P0不纳入用户任意代码/终端/通用浏览器执行器。",
+      "log_ref": "LOG-031"
+    },
+    {
+      "id": "D-021",
+      "title": "P0验收场景",
+      "question": "首批采用哪三类业务场景覆盖完整P0？",
+      "depends_on": [
+        "D-011"
+      ],
+      "recommendation": "知识问答、文档抽取、带MCP工具的多Agent任务；部署/并发/NFR另由D-025确定。",
+      "status": "answered",
+      "round": 2,
+      "answer": "采用知识问答、文档抽取、带MCP工具的多Agent任务作为完整P0验收主线；部署方式与并发/生产指标未回答，转入D-025继续确认。",
+      "log_ref": "LOG-032"
+    },
+    {
+      "id": "D-022",
+      "title": "统一发布与运行合同",
+      "question": "是否采用 Callable/DeploymentRevision、异步 Run、可重放业务事件及有界 Graph/Team 的统一公开合同？",
+      "depends_on": [
+        "D-010",
+        "D-011"
+      ],
+      "recommendation": "平台拥有 Callable/DeploymentRevision 与异步 Run，图由所选执行引擎编译执行，版本固定、组合有界，权限预算只收窄。",
+      "status": "answered",
+      "round": 2,
+      "answer": "采用统一Callable/Deployment/Run：Agent/Graph/Team统一，可变草稿经不可变DeploymentRevision发布，异步202+run_id，查询/SSE/Webhook观察，每Run固定版本，组合有步骤/权限/预算上限。",
+      "log_ref": "LOG-033"
+    },
+    {
+      "id": "D-023",
+      "title": "门户公开级别与管理体验",
+      "question": "开发者门户哪些内容公开，服务目录和在线试调如何鉴权？",
+      "depends_on": [
+        "D-010",
+        "D-012"
+      ],
+      "recommendation": "遵循 ADR-013：通用指南公开，服务目录/Schema/试调按超管会话或受限调用凭据开放，无普通用户注册。",
+      "status": "answered",
+      "round": 2,
+      "answer": "指南公开、服务文档与试调鉴权；LOG-038将登录用户模型简化为超管及调用凭据，不取消开发者门户。",
+      "log_ref": "LOG-038"
+    },
+    {
+      "id": "D-024",
+      "title": "数据保留与删除政策",
+      "question": "按类别配置保留策略，默认是否持续保存至主动删除？",
+      "depends_on": [
+        "D-012",
+        "D-021"
+      ],
+      "recommendation": "采用 ADR-011：默认无自动到期，只有显式配置某类保留期才清理。",
+      "status": "answered",
+      "round": 3,
+      "answer": "分类可配置，默认保留直到主动删除；不采用原建议的30/90/180天。",
+      "log_ref": "LOG-036"
+    },
+    {
+      "id": "D-025",
+      "title": "部署、容量与恢复基线",
+      "question": "P0采用单机私有化独立部署还是生产多副本高可用？预期并发/负载与SLO/RPO/RTO是什么？",
+      "depends_on": [
+        "D-010",
+        "D-021"
+      ],
+      "recommendation": "采用 ADR-012：独立 Docker Compose 单机私有化，容量与恢复数值通过实测形成。",
+      "status": "answered",
+      "round": 3,
+      "answer": "单机私有化，先实测容量与恢复能力；未要求首期多副本HA或承诺未验证指标。",
+      "log_ref": "LOG-037"
+    },
+    {
+      "id": "D-026",
+      "title": "超管管理与密钥分发",
+      "question": "需要用户私有资源/共享ACL，还是超管统一配置与分发密钥？",
+      "depends_on": [
+        "D-012",
+        "D-022"
+      ],
+      "recommendation": "采用 ADR-013：超管管理、密钥调用，无复杂用户/共享体系。",
+      "status": "answered",
+      "round": 3,
+      "answer": "只有超管管理端登录配置，创建密钥分发给调用者；不建设普通用户账户、私有资源/共享ACL。保留指南公开、文档/试调按凭据鉴权和独立门户。",
+      "log_ref": "LOG-038"
+    },
+    {
+      "id": "D-027",
+      "title": "第三方身份与审批集成范围",
+      "question": "首期第三方是否以集成应用身份接入，审批状态由平台统一拥有，而不接入外部用户委托/双审批同步？",
+      "depends_on": [
+        "D-012",
+        "D-020",
+        "D-023"
+      ],
+      "recommendation": "P0不建设专门第三方身份/审批集成；保留双API及本地受控写约束。",
+      "status": "answered",
+      "round": 3,
+      "answer": "暂不需要第三方专门身份和审批对接；结合D026/D030保留管理/运行API，用超管显式发行的用途凭据。不推导为取消本地受控写审批。",
+      "log_ref": "LOG-039"
+    },
+    {
+      "id": "D-028",
+      "title": "预算与质量发布门禁",
+      "question": "是否用硬预算阻止新动作超额，并让固定评测集与权限/恢复测试成为发布门禁？",
+      "depends_on": [
+        "D-021",
+        "D-022"
+      ],
+      "recommendation": "采用 ADR-014：硬预算与固定评测、Schema、授权、恢复发布门禁。",
+      "status": "answered",
+      "round": 3,
+      "answer": "采用硬预算和发布质量门禁；具体阈值配置化并据实测冻结。",
+      "log_ref": "LOG-040"
+    },
+    {
+      "id": "D-029",
+      "title": "持久内容流、重放与恢复",
+      "question": "逐 token 内容是否必须持久化并可完整重放？",
+      "depends_on": [
+        "D-010",
+        "D-022"
+      ],
+      "recommendation": "采用 ADR-015：持久增量日志、提交后发送、从头/游标重放；保留断线不取消和副作用对账。",
+      "status": "answered",
+      "round": 3,
+      "answer": "逐token内容也必须持久化并完整重放，替代临时流加快照；取消不撤销既有外部动作，未知写结果对账。",
+      "log_ref": "LOG-041"
+    },
+    {
+      "id": "D-030",
+      "title": "公开HTTP协议与兼容",
+      "question": "是否采用管理/运行两套v1 OpenAPI、GET查询POST变更、统一错误、创建Run幂等键与版本并发控制作为首期合同？",
+      "depends_on": [
+        "D-012",
+        "D-022"
+      ],
+      "recommendation": "采用 ADR-016，应用 ADR-013 的超管/密钥身份模型及 ADR-015 完整流重放。",
+      "status": "answered",
+      "round": 3,
+      "answer": "采用管理/运行两套v1 OpenAPI、GET查询POST变更、统一错误、Run Idempotency-Key、编辑/发布版本校验、SDK和门户同源合同。",
+      "log_ref": "LOG-042"
+    },
+    {
+      "id": "D-031",
+      "title": "RAG 产品与质量边界",
+      "question": "P0 RAG 支持哪些接入格式/数据源、索引更新与引用方式，如何验收权限撤销、删除和检索质量？",
+      "depends_on": [
+        "D-010",
+        "D-020",
+        "D-021",
+        "D-026"
+      ],
+      "recommendation": "遵循已接受 ADR-017；接入和处理范围不再提问，实际解析/OCR、检索/引用质量及限制由样本验证。",
+      "status": "answered",
+      "round": 4,
+      "answer": "采用Q15完整RAG范围：PDF含扫描OCR、DOCX/XLSX/PPTX、TXT/Markdown/HTML/CSV上传及受控URL；解析/切分预览、混合检索与rerank、引用、增量更新/重建、删除闭环；用中文/扫描件/表格样本验收，P0暂不建设企业网盘或业务数据库同步连接器。",
+      "log_ref": "LOG-044"
+    },
+    {
+      "id": "D-032",
+      "title": "记忆的外部业务用户隔离",
+      "question": "没有普通用户账号后，记忆是否还需按外部业务用户隔离？",
+      "depends_on": [
+        "D-022",
+        "D-024",
+        "D-026"
+      ],
+      "recommendation": "遵循ADR-018加入外部业务用户维度，不建立平台普通用户账号；不以本回答推定身份传递和自动提取政策。",
+      "status": "answered",
+      "round": 4,
+      "answer": "还需按外部业务用户标识隔离短期与长期记忆，不让同一调用凭据下不同业务用户默认共享；标识可信传入与写入政策继续在D-034确认。",
+      "log_ref": "LOG-045"
+    },
+    {
+      "id": "D-033",
+      "title": "MCP与Skill执行信任",
+      "question": "是否由超管管理远程MCP、Skill版本包及本地写工具审批，不引入命令执行或外部审批系统？",
+      "depends_on": [
+        "D-010",
+        "D-020",
+        "D-026"
+      ],
+      "recommendation": "遵循已接受ADR-019，不重复询问远程MCP、Skill版本和超管本地审批。",
+      "status": "answered",
+      "round": 4,
+      "answer": "采用远程Streamable HTTP MCP与超管本地审批；超管发现审核工具、导入校验Skill版本包并绑定发布、支持撤销；具体写参数先审批，不接用户stdio命令、Skill任意代码或第三方审批系统。",
+      "log_ref": "LOG-046"
+    },
+    {
+      "id": "D-034",
+      "title": "业务记忆标识信任与写入政策",
+      "question": "是否由可信业务后端持密钥提交业务用户标识，平台按调用范围/应用/业务用户隔离记忆，并由超管配置自动提取或人工确认？",
+      "depends_on": [
+        "D-032",
+        "D-027"
+      ],
+      "recommendation": "遵循已接受 ADR-020；不重复询问业务用户标识来源或记忆写入默认策略。",
+      "status": "answered",
+      "round": 5,
+      "answer": "采用可信业务后端持调用密钥验证自身用户并传external_user_id；长期按凭据授权范围+应用+业务用户，短期再加会话；需要用户记忆时标识必填、不回退共享，服务密钥不交终端浏览器。自动提取默认关闭，超管按应用开启后规则自动生效或人工确认，可查看/纠正/导出/删除，默认至主动删除。",
+      "log_ref": "LOG-048"
+    }
+  ]
+}

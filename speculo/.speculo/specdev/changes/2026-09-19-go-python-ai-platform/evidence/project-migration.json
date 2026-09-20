@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "artifact": "project-migration",
+  "change": "2026-09-19-go-python-ai-platform",
+  "migrated_at": "2026-09-20T14:47:37.736864+00:00",
+  "from_repository": "https://github.com/NAMEWTA/WTA-plus",
+  "to_repository": "https://github.com/NAMEWTA/wta-ai",
+  "source_issue": "https://github.com/NAMEWTA/WTA-plus/issues/3",
+  "original_files_sha256": {
+    "design-tree.json": "bf1fa15cac6b995964a3cbab21568ac460592b0099f8ac7d893e29764b13082c",
+    "source.md": "aafa88428e9cd8af6cd308ccde6bcbc8d52f0bd3db84447d836a0ec4acb7ae75",
+    ".status.json": "2282554ed6f4d65c7b0b3413cb4c4b7b17e31dd389af7948096bdae69fe16cf4",
+    "CONTEXT.md": "1ee61e96a168b5f23ada20ab8900810514a1d226760e9230e1a7d8b01416801c",
+    "worklog.md": "a27eafd39475a1598888429b3ffe18db037fc567b0865f393bf89b84c990c2d4",
+    "triage.md": "4136344280f6b719b4f3fa1dc85ffe02bc6902eecef8d3fed04cb9201ca58649",
+    "ADR.md": "3e45e32ded3914af81a0f992202fba5374e0975283ffa93945d34260498d13a6",
+    "LOG.md": "4c1d26bf73fd4a02e70895116fc41055803faff39537f38f42f6871e53d3645c"
+  },
+  "source_preserved": true
+}
